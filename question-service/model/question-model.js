@@ -15,6 +15,11 @@ const QuestionModelSchema = new Schema({
         type: String,
         required: true,
     },
+    QuestionImage: {
+        data: Buffer,
+        contentType: String,
+        required: false,
+    },
 });
 
 export default mongoose.model('QuestionModel', QuestionModelSchema);

@@ -103,6 +103,52 @@ const pendingMatchHandler = (io) => {
         socket.on('leave-room', async (socketRoomId) => {
             socket.leave(socketRoomId);
         });
+
+        // refresh question 
+        socket.on('refresh-question', async (socketRoomId, questionDifficulty, questionTitle) => {
+            console.log(questionDifficulty);
+            console.log(questionTitle);
+            let question; 
+
+            if (questionDifficulty == 'easy') {
+                axios.get('http://localhost:8002/api/questions/generateNew/?level=easy', {
+                    data: {
+                        currQuestionTitle : questionTitle
+                    }
+                }).then(response => {
+                    question = response.data;
+                    io.to(socketRoomId).emit('update-question', question);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            } else if (questionDifficulty == 'medium') {
+                axios.get('http://localhost:8002/api/questions/generateNew/?level=medium', {
+                    data: {
+                        currQuestionTitle : questionTitle
+                    }
+                }).then(response => {
+                    question = response.data;
+                    io.to(socketRoomId).emit('update-question', question);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            } else {
+                axios.get('http://localhost:8002/api/questions/generateNew/?level=hard', {
+                    data: {
+                        currQuestionTitle : questionTitle
+                    }
+                }).then(response => {
+                    question = response.data;
+                    io.to(socketRoomId).emit('update-question', question);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            }
+           
+        })
     });
 };
 
