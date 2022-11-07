@@ -27,4 +27,5 @@ jobs:
     - run: npm run build --if-present
     - run: sudo pm2 restart user-service
     - run: sudo pm2 restart matching-service
-    - run: sudpo pm2 restart question-service
+    - run: sudo pm2 restart question-service
+    - run: sudo pm2 restart chat-service
